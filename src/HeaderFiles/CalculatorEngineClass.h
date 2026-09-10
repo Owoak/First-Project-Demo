@@ -8,21 +8,37 @@ class Engine final{
         LcdScreen Screen;
         Keypad keypad;
 
+        long int * FirstNumber;
+        long int * SecondNumber;
+        char * Action;
+
     public:
-        Engine():Screen(),keypad(){
+        Engine():Screen(),keypad(),FirstNumber(nullptr),SecondNumber(nullptr),Action(nullptr){
             
         }
-
-        void printScreen() {
-            Screen.printToLcd();
+        ~Engine(){
+            if (FirstNumber != nullptr){
+                delete FirstNumber;
+            }
+            if (SecondNumber != nullptr){
+                delete SecondNumber;
+            }
+            if (Action != nullptr){
+                delete Action;
+            }
         }
-
-
+        Engine(const Engine& other) = delete;
+        Engine& operator=(const Engine& other) = delete;
+       
         void setupLcd(){
             Screen.setupLcd();
         }
         void setupKeypad(){
-        
+    
+        }
 
+    private:
+        void printScreen() {
+            Screen.printToLcd(FirstNumber,SecondNumber,Action);
         }
 };

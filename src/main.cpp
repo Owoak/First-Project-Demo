@@ -8,10 +8,10 @@ void setup()
 {
     engine.setupLcd();
     engine.setupKeypad();
-    engine.printScreen();
 }
 
 void loop()
 {
+    
 }
                        
