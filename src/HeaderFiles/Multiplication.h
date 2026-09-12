@@ -1,0 +1,12 @@
+#pragma once
+#include "ActionBaseClass.h"
+
+class Multiplication final : public BaseAction{
+    public:
+    String returnResult(long int FirstNumber,long int SecondNumber)override{
+        long int result = FirstNumber * SecondNumber;
+        
+        return String(result);
+    }
+    
+};

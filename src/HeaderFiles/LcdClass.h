@@ -26,7 +26,8 @@ public:
         // lcd.print("Start typing...");
     }
     void printToLcd(const String & FirstNumber,const String & SecondNumber,const String & Action){
-        if (FirstNumber != "\0"){
+        lcd.clear();
+        if (!isEmpty(FirstNumber)){
             if (FirstNumber.length() >= 16 ){
                 lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::FirstRow);
                 lcd.print(FirstNumber);
@@ -42,7 +43,7 @@ public:
             return;
         }
 
-        if (Action != "\0"){
+        if (!isEmpty(Action)){
             lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::SecondRow);
             lcd.print(Action);
             
@@ -50,7 +51,7 @@ public:
             return;
         }
 
-        if (SecondNumber!= "\0"){
+        if (!isEmpty(SecondNumber)){
             if (SecondNumber.length() >= 16 - 2 ){
                 lcd.setCursor(DisplayCoordinates::StartCollumn + 2,DisplayCoordinates::SecondRow);
                 lcd.print(SecondNumber);

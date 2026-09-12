@@ -1,5 +1,6 @@
 
 #include <Arduino.h>
+#include "HeaderFiles/Defines.h"
 #include "HeaderFiles/CalculatorEngineClass.h"
 
 Engine engine;
@@ -13,7 +14,7 @@ void setup()
 
 void loop()
 {
-    engine.InputHandler();
+    engine.process();
+    delay(200);
     
-}
-                       
+}                  
