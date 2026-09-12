@@ -1,6 +1,8 @@
 #pragma once
+
 #include "LcdClass.h"
 #include "KeypadClass.h"
+
 
 
 class Engine final{
@@ -8,37 +10,39 @@ class Engine final{
         LcdScreen Screen;
         Keypad keypad;
 
-        long int * FirstNumber;
-        long int * SecondNumber;
-        char * Action;
+        String equation[3];
 
     public:
-        Engine():Screen(),keypad(),FirstNumber(nullptr),SecondNumber(nullptr),Action(nullptr){
+        Engine():Screen(),keypad(),equation({"\0"}){
             
         }
-        ~Engine(){
-            if (FirstNumber != nullptr){
-                delete FirstNumber;
-            }
-            if (SecondNumber != nullptr){
-                delete SecondNumber;
-            }
-            if (Action != nullptr){
-                delete Action;
-            }
-        }
+        ~Engine(){}
         Engine(const Engine& other) = delete;
         Engine& operator=(const Engine& other) = delete;
-       
+        
         void setupLcd(){
-            Screen.setupLcd();
+            Screen.setup();
         }
         void setupKeypad(){
-    
+            keypad.setup();
         }
+        void InputHandler(){
+            char keyPressed = keypad.ButtonPressed();
+            if (keyPressed != '\n'){
+                equation[0] = String(keyPressed);
+                printScreen();
+
+
+
+
+
+
+            }
+        }
+
 
     private:
         void printScreen() {
-            Screen.printToLcd(FirstNumber,SecondNumber,Action);
+            Screen.printToLcd(equation[0],equation[1],equation[2]);
         }
 };

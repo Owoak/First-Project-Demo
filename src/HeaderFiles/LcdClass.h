@@ -19,23 +19,22 @@ public:
     LcdScreen(const LcdScreen& other) = delete;
     LcdScreen& operator=(const LcdScreen& other) = delete;
 
-    void setupLcd(){
+    void setup(){
         lcd.init();
         lcd.backlight();
         // lcd.setCursor(DisplayCoordinates::FirstRow,DisplayCoordinates::StartCollumn);
         // lcd.print("Start typing...");
     }
-    void printToLcd(const long int * FirstNumber,const long int * SecondNumber,const char* Action){
-        if (FirstNumber != nullptr){
-            String FirstString = String(*FirstNumber);
-            if (FirstString.length() >= 16 ){
+    void printToLcd(const String & FirstNumber,const String & SecondNumber,const String & Action){
+        if (FirstNumber != "\0"){
+            if (FirstNumber.length() >= 16 ){
                 lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::FirstRow);
-                lcd.print(FirstString);
+                lcd.print(FirstNumber);
                 
             }else{
-                short int StartAt = DisplayCoordinates::EndCollumns - FirstString.length() + 1;
+                short int StartAt = DisplayCoordinates::EndCollumns - FirstNumber.length() + 1;
                 lcd.setCursor(StartAt ,DisplayCoordinates::FirstRow);
-                lcd.print(FirstString);
+                lcd.print(FirstNumber);
 
             }
         }
@@ -43,24 +42,23 @@ public:
             return;
         }
 
-        if (Action != nullptr){
+        if (Action != "\0"){
             lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::SecondRow);
-            lcd.print(*Action);
+            lcd.print(Action);
             
         }else{
             return;
         }
 
-        if (SecondNumber!= nullptr){
-            String SecondString = String(*SecondNumber);
-            if (SecondString.length() >= 16 - 2 ){
+        if (SecondNumber!= "\0"){
+            if (SecondNumber.length() >= 16 - 2 ){
                 lcd.setCursor(DisplayCoordinates::StartCollumn + 2,DisplayCoordinates::SecondRow);
-                lcd.print(SecondString);
+                lcd.print(SecondNumber);
             }
             else{
-                short int StartAt = DisplayCoordinates::EndCollumns + 1 - SecondString.length();
+                short int StartAt = DisplayCoordinates::EndCollumns + 1 - SecondNumber.length();
                 lcd.setCursor(StartAt ,DisplayCoordinates::SecondRow);
-                lcd.print(SecondString);
+                lcd.print(SecondNumber);
             }
         }
     }
