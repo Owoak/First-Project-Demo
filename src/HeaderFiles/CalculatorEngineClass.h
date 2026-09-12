@@ -117,6 +117,7 @@ class Engine final{
         void clear(){
             if (operation != nullptr){
                 delete operation;
+                operation = nullptr;
             }
             equation[0] = String();
             equation[1] = String();
