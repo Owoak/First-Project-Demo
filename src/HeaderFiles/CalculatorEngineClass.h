@@ -17,20 +17,22 @@ class Engine final{
         BaseAction * operation;
 
     public:
-        Engine():Screen(),keypad(),equation(),operation(nullptr){
-            
-        }
+        Engine():Screen(),keypad(),equation(),operation(nullptr){}
         ~Engine(){clear();}
         Engine(const Engine& other) = delete;
         Engine& operator=(const Engine& other) = delete;
         
         void setupLcd(){
             Screen.setup();
+            printScreen();
         }
         void setupKeypad(){
             keypad.setup();
         }
+
         void process(){
+            bool NeedsReRendering = false;
+
             char keyPressed = keypad.ButtonPressed();
             switch (keyPressed){
                 case '1':
@@ -44,7 +46,7 @@ class Engine final{
                 case '9':
                 case '0':{
                     findWhereToWrite() += String(keyPressed);
-                    printScreen();
+                    NeedsReRendering = true;
                     break;
                 }
                 case '=':{
@@ -58,7 +60,7 @@ class Engine final{
                         String copy = equation[0];
                         clear();
                         equation[0] = copy;
-                        printScreen();
+                        NeedsReRendering = true;
 
                         break;
                     }
@@ -66,32 +68,32 @@ class Engine final{
                     String result = operation->returnResult(equation[0].toInt(),equation[1].toInt());
                     clear();
                     equation[0] = result;
-                    printScreen();
+                    NeedsReRendering = true;
                     break;
                 }
                 case '+':{
                     if (operation == nullptr){
                         operation = new Addition();
                         equation[2] = '+';
-                        printScreen();
+                        NeedsReRendering = true;
                     }
                     break;
                 }
                 case '-':{
                     if (isEmpty(equation[0])){
                         equation[0] += '-';
-                        printScreen();
+                        NeedsReRendering = true;
                         break;
                     }
                     if (operation == nullptr){
                         operation = new Subtraction();
                         equation[2] = '-';
-                        printScreen();
+                        NeedsReRendering = true;
                         break;
                     }
                     if (isEmpty(equation[1])){
                         equation[1] += '-';
-                        printScreen();
+                        NeedsReRendering = true;
                         break;
                     }
                     break;
@@ -100,16 +102,23 @@ class Engine final{
                     if (operation == nullptr){
                         operation = new Multiplication();
                         equation[2] = '*';
-                        printScreen();
+                        NeedsReRendering = true;
                     }
                     break;
                 }
                 case '\b':{
-
-
+                    String & currentNumber = findWhereToWrite();
+                    if (!isEmpty(currentNumber)){
+                        currentNumber.remove(currentNumber.length() - 1);
+                        NeedsReRendering = true;
+                    }
                     break;
                 }
-            }    
+            }  
+            
+            if (NeedsReRendering){
+                printScreen();  
+            }
         }
 
 
@@ -117,6 +126,7 @@ class Engine final{
         void clear(){
             if (operation != nullptr){
                 delete operation;
+                operation = nullptr;
             }
             equation[0] = String();
             equation[1] = String();

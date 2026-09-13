@@ -7,8 +7,8 @@ class Keypad final{
 
         char kaypad[4][4] = {
             {'1','2','3','0'},
-            {'6','5','4','='},
-            {'9','8','7','+'},
+            {'4','5','6','='},
+            {'7','8','9','+'},
             {'\b','/','*','-'}
         };
 
@@ -38,14 +38,17 @@ class Keypad final{
         
         for (short int row = 0;row < 4;row++){
             digitalWrite(rowsPins[row],LOW);
+            delayMicroseconds(50);
             for (short int collumn = 0;collumn < 4;collumn++){
                 if (digitalRead(collumnPins[collumn]) == LOW){
+                    delay(20);
+                    while (digitalRead(collumnPins[collumn]) == LOW);
                     digitalWrite(rowsPins[row],HIGH);
                     return kaypad[row][collumn];
                 }
             }
-            
             digitalWrite(rowsPins[row],HIGH);
+            
         }
     
         return '\0';

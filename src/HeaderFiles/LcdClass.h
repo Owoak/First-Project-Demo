@@ -14,8 +14,8 @@ private:
     LiquidCrystal_I2C lcd;
 
 public:
-    LcdScreen ():lcd(0x27, 16, 2){
-    }
+    LcdScreen ():lcd(0x27, 16, 2){}
+    ~LcdScreen(){}
     LcdScreen(const LcdScreen& other) = delete;
     LcdScreen& operator=(const LcdScreen& other) = delete;
 
@@ -27,6 +27,7 @@ public:
     }
     void printToLcd(const String & FirstNumber,const String & SecondNumber,const String & Action){
         lcd.clear();
+
         if (!isEmpty(FirstNumber)){
             if (FirstNumber.length() >= 16 ){
                 lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::FirstRow);
@@ -40,6 +41,8 @@ public:
             }
         }
         else{
+            lcd.setCursor(DisplayCoordinates::EndCollumns,DisplayCoordinates::FirstRow);
+            lcd.print(0);
             return;
         }
 
@@ -48,6 +51,8 @@ public:
             lcd.print(Action);
             
         }else{
+            lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::SecondRow);
+            lcd.print('_');
             return;
         }
 
@@ -61,6 +66,11 @@ public:
                 lcd.setCursor(StartAt ,DisplayCoordinates::SecondRow);
                 lcd.print(SecondNumber);
             }
+        }
+        else{
+            lcd.setCursor(DisplayCoordinates::EndCollumns,DisplayCoordinates::SecondRow);
+            lcd.print(0);
+            return;
         }
     }
 

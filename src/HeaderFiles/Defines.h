@@ -1,3 +1,4 @@
+#pragma once
 
 bool isEmpty(const String & string){
     if (string.length() <= 0){

@@ -15,6 +15,4 @@ void setup()
 void loop()
 {
     engine.process();
-    delay(200);
-    
 }                  
