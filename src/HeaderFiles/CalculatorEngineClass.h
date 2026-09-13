@@ -65,10 +65,10 @@ class Engine final{
                         break;
                     }
                     
-                    String result = operation->returnResult(equation[0].toInt(),equation[1].toInt());
+                    String result = operation->returnResult(equation[0].toInt(),equation[1].toInt()); // overflow bug has to ber fixed
                     clear();
                     equation[0] = result;
-                    NeedsReRendering = true;
+                    
                     break;
                 }
                 case '+':{
@@ -112,6 +112,11 @@ class Engine final{
                         currentNumber.remove(currentNumber.length() - 1);
                         NeedsReRendering = true;
                     }
+                    break;
+                }
+                case 'c':{
+                    clear();
+                    NeedsReRendering = true;
                     break;
                 }
             }  
