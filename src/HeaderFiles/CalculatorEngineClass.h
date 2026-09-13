@@ -50,6 +50,7 @@ class Engine final{
                     break;
                 }
                 case '=':{
+                    Serial.println("=");
                     if (isEmpty(equation[0])){
                         equation[0] = "0";
                     }
@@ -68,6 +69,7 @@ class Engine final{
                     String result = operation->returnResult(equation[0].toInt(),equation[1].toInt()); // overflow bug has to ber fixed
                     clear();
                     equation[0] = result;
+                    NeedsReRendering = true;
                     
                     break;
                 }
