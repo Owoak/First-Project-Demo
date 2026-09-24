@@ -8,20 +8,20 @@ class BaseAction {
     virtual nPair returnResult(const nPair & FirstNumber,const nPair & SecondNumber) = 0;
 };
 
-// bool isDecimal(const nPair & number){
-//     for (auto it = number.first.begin();it != number.first.end();it++){
-//         if (*it == '.'){
-//             for (auto secondIt = it;secondIt != number.first.end();secondIt++ ){
-//                 if (*secondIt != 0){
-//                     return true;
-//                 }
-//             }
-//             return false;
-//         }
-//     }
-//     return false;
-// }
 
-// bool formatNumber(const nPair & number){
+void FormatDoubleResult(double& result,nPair& resulted){
+    String s = String(result, 6);
 
-// }
+    while (s.endsWith("0")){
+        s.remove(s.length() - 1);
+    }
+
+    if (s.endsWith(".")) {
+        s.remove(s.length() - 1);
+        resulted = nPair(s,false);
+    }else{
+        resulted = nPair(s,true);
+    }
+
+    
+}

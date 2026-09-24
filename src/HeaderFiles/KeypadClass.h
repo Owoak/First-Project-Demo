@@ -1,5 +1,7 @@
 #pragma once
 
+#define TIME_TO_HOLD 1500
+
 class Keypad final{
     private:
         short int rowsPins[4] = {2,3,4,5};
@@ -42,7 +44,13 @@ class Keypad final{
             for (short int collumn = 0;collumn < 4;collumn++){
                 if (digitalRead(collumnPins[collumn]) == LOW){
                     delay(20);
-                    while (digitalRead(collumnPins[collumn]) == LOW);
+                    unsigned long startTime = millis();
+                    while (digitalRead(collumnPins[collumn]) == LOW){
+                        if ( millis() - startTime  >= TIME_TO_HOLD){
+                            digitalWrite(rowsPins[row],HIGH);
+                            return 'c';
+                        }
+                    };
                     digitalWrite(rowsPins[row],HIGH);
                     return kaypad[row][collumn];
                 }

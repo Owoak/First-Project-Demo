@@ -129,7 +129,7 @@ class Engine final{
                     break;
                 }
                 
-                // case '\b':{
+                // case '\b':{  //needs update
                 //     String & currentNumber = findWhereToWrite();
                 //     if (!isEmpty(currentNumber)){
                 //         currentNumber.remove(currentNumber.length() - 1);
@@ -138,11 +138,12 @@ class Engine final{
                 //     break;
                 // }
                 
-                // case 'c':{
-                //     clear();
-                //     NeedsReRendering = true;
-                //     break;
-                // }
+                case 'c':{
+                    clear();
+                    printScreen();
+                    delay(700);
+                    break;
+                }
             }  
             
             if (NeedsReRendering){
