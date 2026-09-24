@@ -3,10 +3,14 @@
 
 class Multiplication final : public BaseAction{
     public:
-    String returnResult(long int FirstNumber,long int SecondNumber)override{
-        long int result = FirstNumber * SecondNumber;
-        
-        return String(result);
-    }
+        nPair returnResult(const nPair & FirstNumber,const nPair & SecondNumber)override{
+            if (!FirstNumber.second and !SecondNumber.second){
+                int result = (FirstNumber.first).toInt() * (SecondNumber.first).toInt();
+                return nPair(String(result),false);
+            }else{
+                double result = (FirstNumber.first).toDouble() * (SecondNumber.first).toDouble();
+                return nPair(String(result),true);
+            }
+        } 
     
 };

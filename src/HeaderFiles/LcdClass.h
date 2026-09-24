@@ -50,6 +50,7 @@ public:
             lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::SecondRow);
             lcd.print(Action);
             
+            
         }else{
             lcd.setCursor(DisplayCoordinates::StartCollumn,DisplayCoordinates::SecondRow);
             lcd.print('_');
