@@ -2,7 +2,7 @@
 #include "Arduino.h"
 
 bool isEmpty(const String & string){
-    if (string == String(0) or string == String('_')){
+    if (string == "0" or string == "_"){
         return true;
     }
     return false;
@@ -20,7 +20,11 @@ class nPair{
             return *this;
         }
         nPair& operator=(char stringToAdd){
-            first = String(stringToAdd);
+            first = stringToAdd;
+            return *this;
+        }
+        nPair& operator+=(char stringToAdd){
+            first += stringToAdd;
             return *this;
         }
 

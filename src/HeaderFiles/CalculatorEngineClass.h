@@ -47,16 +47,11 @@ class Engine final{
                 case '8':
                 case '9':
                 case '0':{
-                    Serial.println("digit button pressed");
-                    Serial.println(equation[0].first);
-                    Serial.println(equation[1].first);
-                    Serial.println(equation[2].first);
-
                     nPair& currentNumber = findWhereToWrite();
                     if (isEmpty(currentNumber.first)){
                         currentNumber = keyPressed ;
                     }else{
-                        currentNumber += String(keyPressed);
+                        currentNumber += keyPressed;
                     }
                     
                     NeedsReRendering = true;
@@ -121,7 +116,7 @@ class Engine final{
                 case '.':{
                     nPair& currentNumber = findWhereToWrite();
                     if (currentNumber.second == false){
-                        currentNumber.first += String('.');
+                        currentNumber += '.';
                         currentNumber.second = true;
                         NeedsReRendering = true;
                     }
